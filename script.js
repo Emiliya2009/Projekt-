@@ -1,61 +1,73 @@
-const input = document.getElementById("taskInput");
-const list = document.getElementById("taskList");
-const empty = document.getElementById("emptyText");
+let tasks = [];
+let dark = false;
 
-function checkEmpty() {
-  if (list.children.length == 0) {
-    empty.style.display = "block";
-  } else {
-    empty.style.display = "none";
+function render() {
+  let list = document.getElementById('taskList');
+  list.innerHTML = '';
+
+  for (let i = 0; i < tasks.length; i++) {
+    let task = tasks[i];
+
+    let div = document.createElement('div');
+
+    if (task.done == true) {
+      div.className = 'task done';
+    } else {
+      div.className = 'task';
+    }
+
+    div.innerHTML =
+      '<span>' + task.text + '</span>' +
+      '<div>' +
+      '<button class="complete" onclick="toggleTask(' + i + ')">✓</button>' +
+      '<button class="delete" onclick="deleteTask(' + i + ')">✕</button>' +
+      '</div>';
+
+    list.appendChild(div);
   }
 }
 
 function addTask() {
-  let value = input.value;
+  let input = document.getElementById('taskInput');
+  let text = input.value;
 
-  if (value == "") {
-    alert("Wpisz zadanie");
+  if (text == '') {
     return;
   }
 
-  let li = document.createElement("li");
-
-  let checkbox = document.createElement("input");
-  checkbox.type = "checkbox";
-
-  let span = document.createElement("span");
-  span.innerText = " " + value;
-
-  let button = document.createElement("button");
-  button.innerText = "Usuń";
-
-  checkbox.onclick = function () {
-    if (checkbox.checked) {
-      span.style.textDecoration = "line-through";
-    } else {
-      span.style.textDecoration = "none";
-    }
-  };
-
-  button.onclick = function () {
-    list.removeChild(li);
-    checkEmpty();
-  };
-
-  li.appendChild(checkbox);
-  li.appendChild(span);
-  li.appendChild(button);
-
-  list.appendChild(li);
-
-  input.value = "";
-  checkEmpty();
+  tasks.push({ text: text, done: false });
+  input.value = '';
+  render();
 }
 
-function pressEnter(event) {
-  if (event.key == "Enter") {
-    addTask();
+function toggleTask(index) {
+  if (tasks[index].done == true) {
+    tasks[index].done = false;
+  } else {
+    tasks[index].done = true;
+  }
+
+  render();
+}
+
+function deleteTask(index) {
+  tasks.splice(index, 1);
+  render();
+}
+
+function clearTasks() {
+  tasks = [];
+  render();
+}
+
+function toggleTheme() {
+  if (dark == false) {
+    document.body.classList.add('dark');
+    dark = true;
+  } else {
+    document.body.classList.remove('dark');
+    dark = false;
   }
 }
 
-checkEmpty();
+render();
