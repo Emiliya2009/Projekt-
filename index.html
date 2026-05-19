@@ -1,29 +1,34 @@
 <!DOCTYPE html>
 <html lang="pl">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Proste To-Do</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <div class="todo">
-      <h1>Moje zadania</h1>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lista zadań</title>
 
-      <div class="row">
-        <input
-          id="taskInput"
-          type="text"
-          placeholder="Na przykład: zrobić pracę domową"
-          
-        />
-        <button onclick="addTask()">Dodaj</button>
-      </div>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
-      <p id="emptyText">Lista jest pusta</p>
-      <ul id="taskList"></ul>
-    </div>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
 
-    <script src="script.js"></script>
-  </body>
+<header>📋 Lista zadań</header>
+
+<main class="app">
+
+  <section class="tasks" id="taskList"></section>
+
+  <aside class="panel">
+    <input type="text" id="taskInput" placeholder="Wpisz zadanie..." />
+    <button class="add" onclick="addTask()">Dodaj zadanie</button>
+    <button class="clear" onclick="clearTasks()">Wyczyść wszystko</button>
+    <button class="theme" onclick="toggleTheme()">Dark or White</button>
+  </aside>
+
+</main>
+
+<script src="script.js"></script>
+
+</body>
 </html>
